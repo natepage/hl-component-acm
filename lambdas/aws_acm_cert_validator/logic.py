@@ -2,7 +2,6 @@ import logging
 import time
 import boto3
 import os
-import json
 
 log = logging.getLogger()
 log.setLevel(logging.INFO)
@@ -51,7 +50,6 @@ class AwsAcmCertValidatorLogic:
         acm = boto3.client('acm', region_name=self.region)
         time.sleep(10)
         cert_info = acm.describe_certificate(CertificateArn=cert_arn)
-        log.info(f"cert_info: {json.dumps(cert_info)}")
         validation_options = cert_info['Certificate']['DomainValidationOptions'][0]
         while 'ResourceRecord' not in validation_options:
             log.info("Waiting for validation options DNS record in response")
