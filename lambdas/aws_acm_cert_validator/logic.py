@@ -48,7 +48,7 @@ class AwsAcmCertValidatorLogic:
         """
         log.info(f"Validating cert {cert_arn}")
         acm = boto3.client('acm', region_name=self.region)
-        time.sleep(20)
+        time.sleep(30)
         cert_info = acm.describe_certificate(CertificateArn=cert_arn)
         validation_options = cert_info['Certificate']['DomainValidationOptions'][0]
         while 'ResourceRecord' not in validation_options:
